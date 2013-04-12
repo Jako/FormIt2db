@@ -51,7 +51,7 @@ paramname        | Requested REQUEST param - to retreive an     | -
                  | existing row.                                |
 fieldname        | xPDO fieldname the REQUEST param is compared | 'paramname'
                  | with - to retreive an existing row.          |
-arrayFormat      | Format to transform form fields that         | csv
+arrayFormat      | Format to transform database fields that     | csv
                  | contains array data (i.e. checkboxes) into   |
 arrayFields      | JSON encoded array of database fields that   | []
                  | are transformed into arrays                  |

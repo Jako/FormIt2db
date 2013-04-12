@@ -40,7 +40,7 @@ classname        | Class name of the xPDO object.                               
 where            | JSON encoded xPDO where clause - to retreive an existing row.                                    | -
 paramname        | Requested REQUEST param - to retreive an existing row.                                           | -
 fieldname        | xPDO fieldname the REQUEST param is compared with - to retreive an existing row.                 | 'paramname'
-arrayFormat      | Format to transform form fields that contains array data (i.e. checkboxes) into                  | csv
+arrayFormat      | Format to transform database fields that contains array data (i.e. checkboxes) into              | csv
 arrayFields      | JSON encoded array of database fields that are transformed into arrays                           | []
 ignoreFields     | JSON encoded array of database fields that are not retreived into FormIt                         | []
 notFoundRedirect | ID of the MODX resource the user is redirected to, if the requested row is not found             | 0

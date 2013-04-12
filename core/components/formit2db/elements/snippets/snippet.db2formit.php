@@ -28,10 +28,11 @@ $prefix = $modx->getOption('prefix', $scriptProperties, $modx->getOption(xPDO::O
 $packagename = $modx->getOption('packagename', $scriptProperties, '', true);
 $classname = $modx->getOption('classname', $scriptProperties, '', true);
 $where = $modx->fromJson($modx->getOption('where', $scriptProperties, '', true));
-$paramname = $modx->getOption('paramName', $scriptProperties, '', true);
-$fieldname = $modx->getOption('fieldName', $scriptProperties, $paramname, true);
+$paramname = $modx->getOption('paramname', $scriptProperties, '', true);
+$fieldname = $modx->getOption('fieldname', $scriptProperties, $paramname, true);
 $arrayFormat = $modx->getOption('arrayFormat', $scriptProperties, 'csv', true);
 $arrayFields = $modx->fromJson($modx->getOption('arrayFields', $scriptProperties, '[]', true));
+$ignoreFields = $modx->fromJson($modx->getOption('ignoreFields', $scriptProperties, '[]', true));
 $notFoundRedirect = intval($modx->getOption('notFoundRedirect', $scriptProperties, '0'), true);
 
 $packagepath = $modx->getOption('core_path') . 'components/' . $packagename . '/';
@@ -41,9 +42,9 @@ $modx->addPackage($packagename, $modelpath, $prefix);
 
 if ($fieldname) {
 	if (is_array($where)) {
-		$where[$fieldname] = $_GET[$paramname];
+		$where[$fieldname] = $_REQUEST[$paramname];
 	} else {
-		$where = array($fieldname => $_GET[$paramname]);
+		$where = array($fieldname => $_REQUEST[$paramname]);
 	}
 }
 
@@ -59,6 +60,9 @@ if (is_array($where)) {
 		}
 		$formFields = $dataobject->toArray();
 		foreach ($formFields as $field => $value) {
+			if (in_array($field, $ignoreFields)) {
+				unset($formFields[$field]);
+			}
 			if (in_array($field, $arrayFields)) {
 				switch ($arrayFormat) {
 					case 'json': {

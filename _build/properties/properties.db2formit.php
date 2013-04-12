@@ -95,6 +95,14 @@ $properties = array(
 		'lexicon' => 'formit2db:properties',
 	),
 	array(
+		'name' => 'ignoreFields',
+		'desc' => 'prop_db2formit.ignoreFields',
+		'type' => 'textfield',
+		'options' => '',
+		'value' => '[]',
+		'lexicon' => 'formit2db:properties',
+	),
+	array(
 		'name' => 'notFoundRedirect',
 		'desc' => 'prop_db2formit.notFoundRedirect',
 		'type' => 'textfield',

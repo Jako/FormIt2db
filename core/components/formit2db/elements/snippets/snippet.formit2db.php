@@ -1,5 +1,5 @@
 <?php
-/*
+/**
  * FormIt2db/db2FormIt
  * 
  * Copyright 2013 by Thomas Jakobi <thomas.jakobi@partout.info>
@@ -24,20 +24,27 @@
  * @package formit2db
  * @subpackage formit2db snippet
  */
-$prefix = $modx->getOption('prefix', $scriptProperties, $modx->getOption(xPDO::OPT_TABLE_PREFIX), true);
-$packagename = $modx->getOption('packagename', $scriptProperties, '', true);
-$classname = $modx->getOption('classname', $scriptProperties, '', true);
-$where = $modx->fromJson($modx->getOption('where', $scriptProperties, '', true));
-$paramname = $modx->getOption('paramname', $scriptProperties, '', true);
-$fieldname = $modx->getOption('fieldname', $scriptProperties, $paramname, true);
-$arrayFormat = $modx->getOption('arrayFormat', $scriptProperties, 'csv', true);
-$arrayFields = $modx->fromJson($modx->getOption('arrayFields', $scriptProperties, '[]', true));
-$removeFields = $modx->fromJson($modx->getOption('removeFields', $scriptProperties, '[]', true));
+$prefix = $modx->getOption('prefix', $scriptProperties, $modx->getOption(xPDO::OPT_TABLE_PREFIX), TRUE);
+$packagename = $modx->getOption('packagename', $scriptProperties, '', TRUE);
+$classname = $modx->getOption('classname', $scriptProperties, '', TRUE);
+$tablename = $modx->getOption('tablename', $scriptProperties, '', TRUE);
+$where = $modx->fromJson($modx->getOption('where', $scriptProperties, '', TRUE));
+$paramname = $modx->getOption('paramname', $scriptProperties, '', TRUE);
+$fieldname = $modx->getOption('fieldname', $scriptProperties, $paramname, TRUE);
+$arrayFormat = $modx->getOption('arrayFormat', $scriptProperties, 'csv', TRUE);
+$arrayFields = $modx->fromJson($modx->getOption('arrayFields', $scriptProperties, '[]', TRUE));
+$removeFields = $modx->fromJson($modx->getOption('removeFields', $scriptProperties, '[]', TRUE));
+$autoPackage = (boolean) $modx->getOption('autoPackage', $scriptProperties, FALSE);
 
 $packagepath = $modx->getOption('core_path') . 'components/' . $packagename . '/';
 $modelpath = $packagepath . 'model/';
 
 $modx->addPackage($packagename, $modelpath, $prefix);
+if ($autoPackage) {
+	$manager = $modx->getManager();
+	$generator = $manager->getGenerator();
+	$classname = $generator->getClassName($tablename);
+}
 
 if ($fieldname) {
 	if (is_array($where)) {
@@ -59,7 +66,7 @@ if (is_array($where)) {
 if (!is_object($dataobject) || !($dataobject instanceof xPDOObject)) {
 	$errorMsg = 'Failed to create object of type: ' . $classname;
 	$hook->addError('error_message', $errorMsg);
-	return false;
+	return FALSE;
 }
 
 $formFields = $hook->getValues();
@@ -85,7 +92,7 @@ foreach ($formFields as $field => $value) {
 if (!$dataobject->save()) {
 	$errorMsg = 'Failed to save object of type: ' . $classname;
 	$hook->addError('error_message', $errorMsg);
-	return false;
+	return FALSE;
 }
-return true;
+return TRUE;
 ?>

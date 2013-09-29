@@ -1,7 +1,7 @@
 <?php
-/*
+/**
  * FormIt2db/db2FormIt
- * 
+ *
  * Copyright 2013 by Thomas Jakobi <thomas.jakobi@partout.info>
  * 
  * The snippets bases on the code in the following thread in MODX forum 
@@ -26,6 +26,8 @@
  *
  * FormIt2db/db2FormIt build script
  */
+ob_start();
+
 $mtime = microtime();
 $mtime = explode(' ', $mtime);
 $mtime = $mtime[1] + $mtime[0];
@@ -35,7 +37,7 @@ set_time_limit(0);
 /* define package */
 define('PKG_NAME', 'FormIt2db');
 define('PKG_NAME_LOWER', strtolower(PKG_NAME));
-define('PKG_VERSION', '1.0.1');
+define('PKG_VERSION', '1.1');
 define('PKG_RELEASE', 'pl');
 
 /* define sources */
@@ -44,14 +46,17 @@ $sources = array(
 	'root' => $root,
 	'build' => $root . '_build/',
 	'data' => $root . '_build/data/',
+	'events' => $root . '_build/data/events/',
 	'resolvers' => $root . '_build/resolvers/',
-	'properties' => $root . '_build/properties/',
+	'properties' => $root . '_build/data/properties/',
+	'permissions' => $root . '_build/data/permissions/',
 	'chunks' => $root . 'core/components/' . PKG_NAME_LOWER . '/elements/chunks/',
 	'snippets' => $root . 'core/components/' . PKG_NAME_LOWER . '/elements/snippets/',
 	'plugins' => $root . 'core/components/' . PKG_NAME_LOWER . '/elements/plugins/',
 	'lexicon' => $root . 'core/components/' . PKG_NAME_LOWER . '/lexicon/',
 	'docs' => $root . 'core/components/' . PKG_NAME_LOWER . '/docs/',
 	'pages' => $root . 'core/components/' . PKG_NAME_LOWER . '/elements/pages/',
+	'templates' => $root . 'core/components/' . PKG_NAME_LOWER . '/templates/',
 	'source_assets' => $root . 'assets/components/' . PKG_NAME_LOWER,
 	'source_core' => $root . 'core/components/' . PKG_NAME_LOWER,
 );
@@ -64,55 +69,98 @@ require_once $sources['build'] . '/includes/functions.php';
 
 $modx = new modX();
 $modx->initialize('mgr');
+
 echo '<pre>'; /* used for nice formatting of log messages */
 $modx->setLogLevel(modX::LOG_LEVEL_INFO);
 $modx->setLogTarget('ECHO');
 
-$modx->loadClass('transport.modPackageBuilder', '', false, true);
+$modx->loadClass('transport.modPackageBuilder', '', FALSE, TRUE);
 $builder = new modPackageBuilder($modx);
 $builder->createPackage(PKG_NAME_LOWER, PKG_VERSION, PKG_RELEASE);
-$builder->registerNamespace(PKG_NAME_LOWER, false, true, '{core_path}components/' . PKG_NAME_LOWER . '/');
+$builder->registerNamespace(PKG_NAME_LOWER, FALSE, TRUE, '{core_path}components/' . PKG_NAME_LOWER . '/');
 
 /* create category */
 $category = $modx->newObject('modCategory');
 $category->set('id', 1);
 $category->set('category', PKG_NAME);
 $modx->log(modX::LOG_LEVEL_INFO, 'Packaged in category.');
-flush();
 
 /* add snippets */
 $snippets = include $sources['data'] . 'transport.snippets.php';
 if (is_array($snippets)) {
 	$category->addMany($snippets, 'Snippets');
 } else {
-	$modx->log(modX::LOG_LEVEL_FATAL, 'Adding snippets failed.');
+	$snippets = array();
+	$modx->log(modX::LOG_LEVEL_ERROR, 'No snippets defined.');
 }
 $modx->log(modX::LOG_LEVEL_INFO, 'Packaged in ' . count($snippets) . ' snippets.');
-flush();
 unset($snippets);
+
+/* add plugins */
+$plugins = include $sources['data'] . 'transport.plugins.php';
+if (is_array($plugins)) {
+	$category->addMany($plugins, 'Plugins');
+} else {
+	$plugins = array();
+	$modx->log(modX::LOG_LEVEL_ERROR, 'No plugins defined.');
+}
+$modx->log(modX::LOG_LEVEL_INFO, 'Packaged in ' . count($plugins) . ' plugins.');
+unset($plugins);
 
 /* create category vehicle */
 $attr = array(
 	xPDOTransport::UNIQUE_KEY => 'category',
-	xPDOTransport::PRESERVE_KEYS => false,
-	xPDOTransport::UPDATE_OBJECT => true,
-	xPDOTransport::RELATED_OBJECTS => true,
+	xPDOTransport::PRESERVE_KEYS => FALSE,
+	xPDOTransport::UPDATE_OBJECT => TRUE,
+	xPDOTransport::RELATED_OBJECTS => TRUE,
 	xPDOTransport::RELATED_OBJECT_ATTRIBUTES => array(
 		'Snippets' => array(
-			xPDOTransport::PRESERVE_KEYS => false,
-			xPDOTransport::UPDATE_OBJECT => true,
 			xPDOTransport::UNIQUE_KEY => 'name',
+			xPDOTransport::PRESERVE_KEYS => FALSE,
+			xPDOTransport::UPDATE_OBJECT => TRUE,
 		),
+		'Plugins' => array(
+			xPDOTransport::UNIQUE_KEY => 'name',
+			xPDOTransport::PRESERVE_KEYS => FALSE,
+			xPDOTransport::UPDATE_OBJECT => TRUE,
+			xPDOTransport::RELATED_OBJECTS => TRUE,
+			xPDOTransport::RELATED_OBJECT_ATTRIBUTES => array(
+				'PluginEvents' => array(
+					xPDOTransport::PRESERVE_KEYS => TRUE,
+					xPDOTransport::UPDATE_OBJECT => FALSE,
+					xPDOTransport::UNIQUE_KEY => array('pluginid', 'event'),
+				)
+			)
+		)
 	)
 );
 $vehicle = $builder->createVehicle($category, $attr);
+unset($category, $attr);
 
-$modx->log(modX::LOG_LEVEL_INFO, 'Adding file resolvers to plugin...');
+$modx->log(modX::LOG_LEVEL_INFO, 'Adding file resolvers ...');
 $vehicle->resolve('file', array(
 	'source' => $sources['source_core'],
 	'target' => "return MODX_CORE_PATH . 'components/';"
 ));
 $builder->putVehicle($vehicle);
+
+/* load system settings */
+$settings = include $sources['data'] . 'transport.settings.php';
+if (!is_array($settings)) {
+	$modx->log(modX::LOG_LEVEL_ERROR, 'No settings defined.');
+} else {
+	$attr = array(
+		xPDOTransport::UNIQUE_KEY => 'key',
+		xPDOTransport::PRESERVE_KEYS => TRUE,
+		xPDOTransport::UPDATE_OBJECT => FALSE,
+	);
+	foreach ($settings as $setting) {
+		$vehicle = $builder->createVehicle($setting, $attr);
+		$builder->putVehicle($vehicle);
+	}
+	$modx->log(modX::LOG_LEVEL_INFO, 'Packaged in ' . count($settings) . ' System Settings.');
+}
+unset($settings, $setting, $attr);
 
 /* now pack in the license file, readme and changelog */
 $modx->log(modX::LOG_LEVEL_INFO, 'Added package attributes and setup options.');
@@ -123,8 +171,8 @@ $builder->setPackageAttributes(array(
 ));
 
 /* zip up package */
-$modx->log(modX::LOG_LEVEL_INFO, 'Packing up transport package zip...');
-$builder->pack();
+$modx->log(modX::LOG_LEVEL_INFO, 'Packing up transport package zip ...');
+$built = $builder->pack();
 
 $mtime = microtime();
 $mtime = explode(" ", $mtime);
@@ -133,6 +181,23 @@ $tend = $mtime;
 $totalTime = ($tend - $tstart);
 $totalTime = sprintf("%2.4f s", $totalTime);
 
-$modx->log(modX::LOG_LEVEL_INFO, "\n<br />Package Built.<br />\nExecution time: {$totalTime}\n");
+if ($built) {
+	$modx->log(modX::LOG_LEVEL_INFO, "\n<br />Package Built.<br />\nExecution time: {$totalTime}\n");
+
+	ob_end_clean();
+
+	$filename = $builder->filename;
+	$directory = $builder->directory;
+
+	header('Pragma: no-cache');
+	header('Expires: 0');
+	header('Content-type: application/zip');
+	header('Content-Disposition: attachment; filename=' . $filename);
+	header('Content-Length: ' . filesize($directory . $filename));
+	readfile($directory . $filename);
+} else {
+	$modx->log(modX::LOG_LEVEL_INFO, "\n<br />Error: No Package Built.<br />\nExecution time: {$totalTime}\n");
+	ob_end_flush();
+}
 
 exit();

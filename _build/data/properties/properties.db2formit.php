@@ -52,6 +52,14 @@ $properties = array(
 		'lexicon' => 'formit2db:properties',
 	),
 	array(
+		'name' => 'tablename',
+		'desc' => 'prop_db2formit.tablename',
+		'type' => 'textfield',
+		'options' => '',
+		'value' => '',
+		'lexicon' => 'formit2db:properties',
+	),
+	array(
 		'name' => 'where',
 		'desc' => 'prop_db2formit.where',
 		'type' => 'textfield',
@@ -108,6 +116,14 @@ $properties = array(
 		'type' => 'textfield',
 		'options' => '',
 		'value' => '',
+		'lexicon' => 'formit2db:properties',
+	),
+	array(
+		'name' => 'autoPackage',
+		'desc' => 'prop_formit2db.autoPackage',
+		'type' => 'combo-boolean',
+		'options' => '',
+		'value' => FALSE,
 		'lexicon' => 'formit2db:properties',
 	)
 );

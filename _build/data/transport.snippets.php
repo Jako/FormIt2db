@@ -1,5 +1,5 @@
 <?php
-/*
+/**
  * FormIt2db/db2FormIt
  * 
  * Copyright 2013 by Thomas Jakobi <thomas.jakobi@partout.info>

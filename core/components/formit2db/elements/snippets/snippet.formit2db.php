@@ -24,26 +24,48 @@
  * @package formit2db
  * @subpackage formit2db snippet
  */
-$prefix = $modx->getOption('prefix', $scriptProperties, $modx->getOption(xPDO::OPT_TABLE_PREFIX), TRUE);
-$packagename = $modx->getOption('packagename', $scriptProperties, '', TRUE);
-$classname = $modx->getOption('classname', $scriptProperties, '', TRUE);
-$tablename = $modx->getOption('tablename', $scriptProperties, '', TRUE);
-$where = $modx->fromJson($modx->getOption('where', $scriptProperties, '', TRUE));
-$paramname = $modx->getOption('paramname', $scriptProperties, '', TRUE);
-$fieldname = $modx->getOption('fieldname', $scriptProperties, $paramname, TRUE);
-$arrayFormat = $modx->getOption('arrayFormat', $scriptProperties, 'csv', TRUE);
-$arrayFields = $modx->fromJson($modx->getOption('arrayFields', $scriptProperties, '[]', TRUE));
-$removeFields = $modx->fromJson($modx->getOption('removeFields', $scriptProperties, '[]', TRUE));
-$autoPackage = (boolean)$modx->getOption('autoPackage', $scriptProperties, FALSE);
+$prefix = $modx->getOption('prefix', $scriptProperties, $modx->getOption(xPDO::OPT_TABLE_PREFIX), true);
+$packagename = $modx->getOption('packagename', $scriptProperties, '', true);
+$classname = $modx->getOption('classname', $scriptProperties, '', true);
+$tablename = $modx->getOption('tablename', $scriptProperties, '', true);
+$where = $modx->fromJson($modx->getOption('where', $scriptProperties, '', true));
+$paramname = $modx->getOption('paramname', $scriptProperties, '', true);
+$fieldname = $modx->getOption('fieldname', $scriptProperties, $paramname, true);
+$arrayFormat = $modx->getOption('arrayFormat', $scriptProperties, 'csv', true);
+$arrayFields = $modx->fromJson($modx->getOption('arrayFields', $scriptProperties, '[]', true));
+$removeFields = $modx->fromJson($modx->getOption('removeFields', $scriptProperties, '[]', true));
+$autoPackage = (boolean)$modx->getOption('autoPackage', $scriptProperties, false);
 
 $packagepath = $modx->getOption($packagename . '.core_path', NULL, $modx->getOption('core_path') . 'components/' . $packagename . '/');
 $modelpath = $packagepath . 'model/';
 
-$modx->addPackage($packagename, $modelpath, $prefix);
 if ($autoPackage) {
+    $schemapath = $modelpath . 'schema/';
+    $schemafile = $schemapath . $packagename . '.mysql.schema.xml';
     $manager = $modx->getManager();
     $generator = $manager->getGenerator();
+    if (!file_exists($schemafile)) {
+
+        if (!is_dir($packagepath)) {
+            mkdir($packagepath, 0777);
+        }
+        if (!is_dir($modelpath)) {
+            mkdir($modelpath, 0777);
+        }
+        if (!is_dir($schemapath)) {
+            mkdir($schemapath, 0777);
+        }
+        //Use this to create a schema from an existing database
+        if (!$generator->writeSchema($schemafile, $packagename, '', $prefix, true)) {
+            $modx->log(modX::LOG_LEVEL_ERROR, 'Could not generate XML schema', '', 'FormIt2db Hook');
+        }
+    }
+    $generator->parseSchema($schemafile, $modelpath);
+    $modx->log(modX::LOG_LEVEL_WARN, 'autoPackage parameter active', '', 'FormIt2db Hook');
+    $modx->addPackage($packagename, $modelpath, $prefix);
     $classname = $generator->getClassName($tablename);
+} else {
+    $modx->addPackage($packagename, $modelpath, $prefix);
 }
 
 if ($fieldname) {
@@ -66,8 +88,8 @@ if (is_array($where)) {
 if (!is_object($dataobject) || !($dataobject instanceof xPDOObject)) {
     $errorMsg = 'Failed to create object of type: ' . $classname;
     $hook->addError('error_message', $errorMsg);
-    $modx->log(modX::LOG_LEVEL_ERROR, $errorMsg, '', 'formit2db Hook');
-    return FALSE;
+    $modx->log(modX::LOG_LEVEL_ERROR, $errorMsg, '', 'FormIt2db Hook');
+    return false;
 }
 
 $formFields = $hook->getValues();
@@ -91,8 +113,8 @@ foreach ($formFields as $field => $value) {
 if (!$dataobject->save()) {
     $errorMsg = 'Failed to save object of type: ' . $classname;
     $hook->addError('error_message', $errorMsg);
-    $modx->log(modX::LOG_LEVEL_ERROR, $errorMsg, '', 'formit2db Hook');
-    return FALSE;
+    $modx->log(modX::LOG_LEVEL_ERROR, $errorMsg, '', 'FormIt2db Hook');
+    return false;
 }
-return TRUE;
+return true;
 ?>

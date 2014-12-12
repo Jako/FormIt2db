@@ -12,3 +12,5 @@ Changelog
     - Add: Param tablename - tablename for autocreation of the xPDO Package
 - 1.1.1
     - Add: Log xPDO Package Errors in MODX Error Log
+- 1.1.2
+    - Add: autoPackage parameter: Package generation is executed in FormIt2db too. Before it was only active in db2FormIt.

@@ -115,7 +115,7 @@ $properties = array(
 		'desc' => 'prop_formit2db.autoPackage',
 		'type' => 'combo-boolean',
 		'options' => '',
-		'value' => FALSE,
+		'value' => false,
 		'lexicon' => 'formit2db:properties',
 	)
 );

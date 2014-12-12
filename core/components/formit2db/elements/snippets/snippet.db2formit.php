@@ -24,18 +24,18 @@
  * @package formit2db
  * @subpackage db2formit snippet
  */
-$prefix = $modx->getOption('prefix', $scriptProperties, $modx->getOption(xPDO::OPT_TABLE_PREFIX), TRUE);
-$packagename = $modx->getOption('packagename', $scriptProperties, '', TRUE);
-$classname = $modx->getOption('classname', $scriptProperties, '', TRUE);
-$tablename = $modx->getOption('tablename', $scriptProperties, '', TRUE);
-$where = $modx->fromJson($modx->getOption('where', $scriptProperties, '', TRUE));
-$paramname = $modx->getOption('paramname', $scriptProperties, '', TRUE);
-$fieldname = $modx->getOption('fieldname', $scriptProperties, $paramname, TRUE);
-$arrayFormat = $modx->getOption('arrayFormat', $scriptProperties, 'csv', TRUE);
-$arrayFields = $modx->fromJson($modx->getOption('arrayFields', $scriptProperties, '[]', TRUE));
-$ignoreFields = $modx->fromJson($modx->getOption('ignoreFields', $scriptProperties, '[]', TRUE));
-$notFoundRedirect = (integer)$modx->getOption('notFoundRedirect', $scriptProperties, '0', TRUE);
-$autoPackage = (boolean)$modx->getOption('autoPackage', $scriptProperties, FALSE);
+$prefix = $modx->getOption('prefix', $scriptProperties, $modx->getOption(xPDO::OPT_TABLE_PREFIX), true);
+$packagename = $modx->getOption('packagename', $scriptProperties, '', true);
+$classname = $modx->getOption('classname', $scriptProperties, '', true);
+$tablename = $modx->getOption('tablename', $scriptProperties, '', true);
+$where = $modx->fromJson($modx->getOption('where', $scriptProperties, '', true));
+$paramname = $modx->getOption('paramname', $scriptProperties, '', true);
+$fieldname = $modx->getOption('fieldname', $scriptProperties, $paramname, true);
+$arrayFormat = $modx->getOption('arrayFormat', $scriptProperties, 'csv', true);
+$arrayFields = $modx->fromJson($modx->getOption('arrayFields', $scriptProperties, '[]', true));
+$ignoreFields = $modx->fromJson($modx->getOption('ignoreFields', $scriptProperties, '[]', true));
+$notFoundRedirect = (integer)$modx->getOption('notFoundRedirect', $scriptProperties, '0', true);
+$autoPackage = (boolean)$modx->getOption('autoPackage', $scriptProperties, false);
 
 $packagepath = $modx->getOption($packagename . '.core_path', NULL, $modx->getOption('core_path') . 'components/' . $packagename . '/');
 $modelpath = $packagepath . 'model/';
@@ -57,12 +57,12 @@ if ($autoPackage) {
             mkdir($schemapath, 0777);
         }
         //Use this to create a schema from an existing database
-        if (!$generator->writeSchema($schemafile, $packagename, 'xPDOObject', $prefix, TRUE)) {
-            $modx->log(modX::LOG_LEVEL_ERROR, 'Could not generate XML schema', '', 'db2formit Hook');
+        if (!$generator->writeSchema($schemafile, $packagename, 'xPDOObject', $prefix, true)) {
+            $modx->log(modX::LOG_LEVEL_ERROR, 'Could not generate XML schema', '', 'db2FormIt Hook');
         }
     }
     $generator->parseSchema($schemafile, $modelpath);
-    $modx->log(modX::LOG_LEVEL_WARN, 'FormIt2db autoPackage parameter active');
+    $modx->log(modX::LOG_LEVEL_WARN, 'autoPackage parameter active', '', 'db2FormIt Hook');
     $modx->addPackage($packagename, $modelpath, $prefix);
     $classname = $generator->getClassName($tablename);
 } else {
@@ -82,8 +82,8 @@ if (is_array($where)) {
         if (!is_object($dataobject) || !($dataobject instanceof xPDOObject)) {
             $errorMsg = 'Failed to create object of type: ' . $classname;
             $hook->addError('error_message', $errorMsg);
-            $modx->log(modX::LOG_LEVEL_ERROR, $errorMsg, '', 'db2formit Hook');
-            return FALSE;
+            $modx->log(modX::LOG_LEVEL_ERROR, $errorMsg, '', 'db2FormIt Hook');
+            return false;
         }
         if (empty($dataobject) && $notFoundRedirect) {
             $modx->sendRedirect($modx->makeUrl($notFoundRedirect));
@@ -96,7 +96,7 @@ if (is_array($where)) {
             if (in_array($field, $arrayFields)) {
                 switch ($arrayFormat) {
                     case 'json': {
-                        $formFields[$field] = json_decode($value, TRUE);
+                        $formFields[$field] = json_decode($value, true);
                         break;
                     }
                     case 'csv' :
@@ -115,5 +115,5 @@ if (is_array($where)) {
     }
 }
 
-return TRUE;
+return true;
 ?>

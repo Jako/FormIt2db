@@ -108,10 +108,10 @@ if (is_array($where)) {
             }
         }
         $hook->setValues($formFields);
-    }
-} else {
-    if ($notFoundRedirect) {
-        $modx->sendRedirect($modx->makeUrl($notFoundRedirect));
+    } else {
+        if ($notFoundRedirect) {
+            $modx->sendRedirect($modx->makeUrl($notFoundRedirect));
+        }
     }
 }
 

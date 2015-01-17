@@ -1,0 +1,182 @@
+{
+  "name": "FormIt2db",
+  "lowCaseName": "formit2db",
+  "description": "FormIt hooks for saving/retreiving xPDO objects",
+  "author": "Thomas Jakobi",
+  "version": "1.1.3",
+  "package": {
+    "actions": [],
+    "menus": [],
+    "elements": {
+      "plugins": [
+      ],
+      "snippets": [
+        {
+          "name": "FormIt2db",
+          "description": "FormIt to DB hook.",
+          "file": "formit2db.snippet.php",
+          "properties": [
+            {
+              "name": "prefix",
+              "description": "prop_formit2db.prefix",
+              "options": ""
+            },
+            {
+              "name": "packagename",
+              "description": "prop_formit2db.packagename",
+              "value": ""
+            },
+            {
+              "name": "classname",
+              "description": "prop_formit2db.classname",
+              "value": ""
+            },
+            {
+              "name": "tablename",
+              "description": "prop_formit2db.tablename",
+              "value": ""
+            },
+            {
+              "name": "where",
+              "description": "prop_formit2db.where",
+              "value": ""
+            },
+            {
+              "name": "paramname",
+              "description": "prop_formit2db.paramname",
+              "value": ""
+            },
+            {
+              "name": "fieldname",
+              "description": "prop_formit2db.fieldname",
+              "value": ""
+            },
+            {
+              "name": "arrayFormat",
+              "description": "prop_formit2db.arrayFormat",
+              "type": "list",
+              "options": [
+                {
+                  "text": "CSV",
+                  "value": "csv"
+                },
+                {
+                  "text": "JSON",
+                  "value": "json"
+                }
+              ],
+              "value": "csv"
+            },
+            {
+              "name": "arrayFields",
+              "description": "prop_formit2db.arrayFields",
+              "value": "[]"
+            },
+            {
+              "name": "removeFields",
+              "description": "prop_formit2db.removeFields",
+              "value": "[]"
+            },
+            {
+              "name": "autoPackage",
+              "description": "prop_formit2db.autoPackage",
+              "type": "combo-boolean",
+              "value": false
+            }
+          ]
+        }, {
+          "name": "db2FormIt",
+          "description": "DB to FormIt hook.",
+          "file": "db2formit.snippet.php",
+          "properties": [
+            {
+              "name": "prefix",
+              "description": "prop_formit2db.prefix",
+              "options": ""
+            },
+            {
+              "name": "packagename",
+              "description": "prop_formit2db.packagename",
+              "value": ""
+            },
+            {
+              "name": "classname",
+              "description": "prop_formit2db.classname",
+              "value": ""
+            },
+            {
+              "name": "tablename",
+              "description": "prop_formit2db.tablename",
+              "value": ""
+            },
+            {
+              "name": "where",
+              "description": "prop_formit2db.where",
+              "value": ""
+            },
+            {
+              "name": "paramname",
+              "description": "prop_formit2db.paramname",
+              "value": ""
+            },
+            {
+              "name": "fieldname",
+              "description": "prop_formit2db.fieldname",
+              "value": ""
+            },
+            {
+              "name": "arrayFormat",
+              "description": "prop_formit2db.arrayFormat",
+              "type": "list",
+              "options": [
+                {
+                  "text": "CSV",
+                  "value": "csv"
+                },
+                {
+                  "text": "JSON",
+                  "value": "json"
+                }
+              ],
+              "value": "csv"
+            },
+            {
+              "name": "arrayFields",
+              "description": "prop_formit2db.arrayFields",
+              "value": "[]"
+            },
+            {
+              "name": "ignoreFields",
+              "description": "prop_formit2db.ignoreFields",
+              "value": "[]"
+            },
+            {
+              "name": "notFoundRedirect",
+              "description": "prop_formit2db.notFoundRedirect",
+              "value": ""
+            },
+            {
+              "name": "autoPackage",
+              "description": "prop_formit2db.autoPackage",
+              "type": "combo-boolean",
+              "value": false
+            }
+          ]
+        }
+      ],
+      "chunks": [],
+      "templates": [],
+      "tvs": []
+    },
+    "resources": [],
+    "systemSettings": []
+  },
+  "database": {},
+  "extensionPackage": {},
+  "build": {
+    "readme": "docs/readme.txt",
+    "license": "docs/license.txt",
+    "changelog": "docs/changelog.txt",
+    "resolver": {}
+  }
+}

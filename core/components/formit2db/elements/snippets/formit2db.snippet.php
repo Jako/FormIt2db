@@ -2,27 +2,15 @@
 /**
  * FormIt2db/db2FormIt
  *
- * Copyright 2013-2014 by Thomas Jakobi <thomas.jakobi@partout.info>
+ * Copyright 2013-2015 by Thomas Jakobi <thomas.jakobi@partout.info>
  *
  * The snippets bases on the code in the following thread in MODX forum
  * http://forums.modx.com/thread/?thread=32560
  *
- * FormIt2db/db2FormIt is free software; you can redistribute it and/or modify
- * it under the terms of the GNU General Public License as published by the Free
- * Software Foundation; either version 2 of the License, or (at your option) any
- * later version.
- *
- * FormIt2db/db2FormIt is distributed in the hope that it will be useful, but
- * WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or
- * FITNESS FOR A PARTICULAR PURPOSE. See the GNU General Public License for more
- * details.
- *
- * You should have received a copy of the GNU General Public License along with
- * FormIt2db/db2FormIt; if not, write to the Free Software Foundation, Inc.,
- * 59 Temple Place, Suite 330, Boston, MA 02111-1307 USA
- *
  * @package formit2db
  * @subpackage formit2db snippet
+ *
+ * FormIt2db snippet
  */
 $prefix = $modx->getOption('prefix', $scriptProperties, $modx->getOption(xPDO::OPT_TABLE_PREFIX), true);
 $packagename = $modx->getOption('packagename', $scriptProperties, '', true);
@@ -36,7 +24,7 @@ $arrayFields = $modx->fromJson($modx->getOption('arrayFields', $scriptProperties
 $removeFields = $modx->fromJson($modx->getOption('removeFields', $scriptProperties, '[]', true));
 $autoPackage = (boolean)$modx->getOption('autoPackage', $scriptProperties, false);
 
-$packagepath = $modx->getOption($packagename . '.core_path', NULL, $modx->getOption('core_path') . 'components/' . $packagename . '/');
+$packagepath = $modx->getOption($packagename . '.core_path', null, $modx->getOption('core_path') . 'components/' . $packagename . '/');
 $modelpath = $packagepath . 'model/';
 
 if ($autoPackage) {
@@ -55,8 +43,8 @@ if ($autoPackage) {
         if (!is_dir($schemapath)) {
             mkdir($schemapath, 0777);
         }
-        //Use this to create a schema from an existing database
-        if (!$generator->writeSchema($schemafile, $packagename, '', $prefix, true)) {
+        // Use this to create a schema from an existing database
+        if (!$generator->writeSchema($schemafile, $packagename, 'xPDOObject', $prefix, true)) {
             $modx->log(modX::LOG_LEVEL_ERROR, 'Could not generate XML schema', '', 'FormIt2db Hook');
         }
     }
@@ -117,4 +105,3 @@ if (!$dataobject->save()) {
     return false;
 }
 return true;
-?>

@@ -172,7 +172,6 @@
     "systemSettings": []
   },
   "database": {},
-  "extensionPackage": {},
   "build": {
     "readme": "docs/readme.txt",
     "license": "docs/license.txt",

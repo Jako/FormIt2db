@@ -3,13 +3,9 @@
   "lowCaseName": "formit2db",
   "description": "FormIt hooks for saving/retreiving xPDO objects",
   "author": "Thomas Jakobi",
-  "version": "1.1.3",
+  "version": "1.1.4",
   "package": {
-    "actions": [],
-    "menus": [],
     "elements": {
-      "plugins": [
-      ],
       "snippets": [
         {
           "name": "FormIt2db",
@@ -84,49 +80,50 @@
               "value": false
             }
           ]
-        }, {
+        },
+        {
           "name": "db2FormIt",
           "description": "DB to FormIt hook.",
           "file": "db2formit.snippet.php",
           "properties": [
             {
               "name": "prefix",
-              "description": "prop_formit2db.prefix",
+              "description": "prop_db2formit.prefix",
               "options": ""
             },
             {
               "name": "packagename",
-              "description": "prop_formit2db.packagename",
+              "description": "prop_db2formit.packagename",
               "value": ""
             },
             {
               "name": "classname",
-              "description": "prop_formit2db.classname",
+              "description": "prop_db2formit.classname",
               "value": ""
             },
             {
               "name": "tablename",
-              "description": "prop_formit2db.tablename",
+              "description": "prop_db2formit.tablename",
               "value": ""
             },
             {
               "name": "where",
-              "description": "prop_formit2db.where",
+              "description": "prop_db2formit.where",
               "value": ""
             },
             {
               "name": "paramname",
-              "description": "prop_formit2db.paramname",
+              "description": "prop_db2formit.paramname",
               "value": ""
             },
             {
               "name": "fieldname",
-              "description": "prop_formit2db.fieldname",
+              "description": "prop_db2formit.fieldname",
               "value": ""
             },
             {
               "name": "arrayFormat",
-              "description": "prop_formit2db.arrayFormat",
+              "description": "prop_db2formit.arrayFormat",
               "type": "list",
               "options": [
                 {
@@ -142,40 +139,33 @@
             },
             {
               "name": "arrayFields",
-              "description": "prop_formit2db.arrayFields",
+              "description": "prop_db2formit.arrayFields",
               "value": "[]"
             },
             {
               "name": "ignoreFields",
-              "description": "prop_formit2db.ignoreFields",
+              "description": "prop_db2formit.ignoreFields",
               "value": "[]"
             },
             {
               "name": "notFoundRedirect",
-              "description": "prop_formit2db.notFoundRedirect",
+              "description": "prop_db2formit.notFoundRedirect",
               "value": ""
             },
             {
               "name": "autoPackage",
-              "description": "prop_formit2db.autoPackage",
+              "description": "prop_db2formit.autoPackage",
               "type": "combo-boolean",
               "value": false
             }
           ]
         }
-      ],
-      "chunks": [],
-      "templates": [],
-      "tvs": []
-    },
-    "resources": [],
-    "systemSettings": []
+      ]
+    }
   },
-  "database": {},
   "build": {
     "readme": "docs/readme.txt",
     "license": "docs/license.txt",
-    "changelog": "docs/changelog.txt",
-    "resolver": {}
+    "changelog": "docs/changelog.txt"
   }
 }

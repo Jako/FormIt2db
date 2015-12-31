@@ -58,10 +58,8 @@ if ($autoPackage) {
 }
 
 if ($fieldname) {
-    if (is_array($where)) {
-        $where[$fieldname] = $modx->request->getParameters(array($paramname), 'REQUEST');
-    } else {
-        $where = array($fieldname => $modx->request->getParameters(array($paramname), 'REQUEST'));
+    if ($requestParams = $modx->request->getParameters(array($paramname), 'REQUEST')) {
+        $where = (is_array($where)) ? array_merge($where, $requestParams) : $requestParams;
     }
 }
 

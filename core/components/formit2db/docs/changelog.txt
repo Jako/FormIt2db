@@ -1,6 +1,8 @@
 Changelog
 ================================================================================
 
+- 1.1.4
+    - Bugfix: Wrong usage of $modx->request->getParameters
 - 1.1.3
     - Bugfix: notFoundRedirect is triggered right
     - Bugfix: Don't check/log xPDO Package Errors in db2FormIt hook

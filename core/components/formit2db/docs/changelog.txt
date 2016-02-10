@@ -1,5 +1,5 @@
-Changelog
-================================================================================
+Changelog for Formit2db
+=======================
 
 - 1.1.4
     - Bugfix: Wrong usage of $modx->request->getParameters
@@ -14,6 +14,7 @@ Changelog
 - 1.1
     - Add: Param autoPackage - Autocreate the xPDO Package with packagename and tablename
     - Add: Param tablename - tablename for autocreation of the xPDO Package
+
 - 1.0.1
     - Add: Param ignoreFields to db2FormIt
     - Change: Paramname/fieldname of db2FormIt are compared with the REQUEST array instead of GET array

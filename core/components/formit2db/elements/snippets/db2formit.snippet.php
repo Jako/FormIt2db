@@ -72,15 +72,13 @@ if (is_array($where)) {
             }
             if (in_array($field, $arrayFields)) {
                 switch ($arrayFormat) {
-                    case 'json': {
+                    case 'json':
                         $formFields[$field] = $value;
                         break;
-                    }
                     case 'csv' :
-                    default : {
+                    default :
                         $formFields[$field] = json_encode(explode(',', $value));
                         break;
-                    }
                 }
             }
         }

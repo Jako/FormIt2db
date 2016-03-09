@@ -32,16 +32,16 @@ if ($autoPackage) {
     $schemafile = $schemapath . $packagename . '.mysql.schema.xml';
     $manager = $modx->getManager();
     $generator = $manager->getGenerator();
+    $newFolderPermissions = $modx->getOption('new_folder_permissions', null, 0755);
     if (!file_exists($schemafile)) {
-
         if (!is_dir($packagepath)) {
-            mkdir($packagepath, 0777);
+            mkdir($packagepath, $newFolderPermissions);
         }
         if (!is_dir($modelpath)) {
-            mkdir($modelpath, 0777);
+            mkdir($modelpath, $newFolderPermissions);
         }
         if (!is_dir($schemapath)) {
-            mkdir($schemapath, 0777);
+            mkdir($schemapath, $newFolderPermissions);
         }
         // Use this to create a schema from an existing database
         if (!$generator->writeSchema($schemafile, $packagename, 'xPDOObject', $prefix, true)) {

@@ -11,6 +11,10 @@
  * @subpackage formit2db snippet
  *
  * FormIt2db snippet
+ *
+ * @var modX $modx
+ * @var array $scriptProperties
+ * @var fiHooks $hook
  */
 $prefix = $modx->getOption('prefix', $scriptProperties, $modx->getOption(xPDO::OPT_TABLE_PREFIX), true);
 $packagename = $modx->getOption('packagename', $scriptProperties, '', true);
@@ -31,6 +35,7 @@ if ($autoPackage) {
     $schemapath = $modelpath . 'schema/';
     $schemafile = $schemapath . $packagename . '.mysql.schema.xml';
     $manager = $modx->getManager();
+    /** @var xPDOGenerator_mysql|xPDOGenerator_sqlsrv|xPDOGenerator_sqlite $generator */
     $generator = $manager->getGenerator();
     $newFolderPermissions = $modx->getOption('new_folder_permissions', null, 0755);
     if (!file_exists($schemafile)) {

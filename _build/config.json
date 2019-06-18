@@ -14,42 +14,34 @@
           "properties": [
             {
               "name": "prefix",
-              "description": "prop_formit2db.prefix",
               "options": ""
             },
             {
               "name": "packagename",
-              "description": "prop_formit2db.packagename",
               "value": ""
             },
             {
               "name": "classname",
-              "description": "prop_formit2db.classname",
               "value": ""
             },
             {
               "name": "tablename",
-              "description": "prop_formit2db.tablename",
               "value": ""
             },
             {
               "name": "where",
-              "description": "prop_formit2db.where",
               "value": ""
             },
             {
               "name": "paramname",
-              "description": "prop_formit2db.paramname",
               "value": ""
             },
             {
               "name": "fieldname",
-              "description": "prop_formit2db.fieldname",
               "value": ""
             },
             {
               "name": "arrayFormat",
-              "description": "prop_formit2db.arrayFormat",
               "type": "list",
               "options": [
                 {
@@ -65,17 +57,14 @@
             },
             {
               "name": "arrayFields",
-              "description": "prop_formit2db.arrayFields",
               "value": "[]"
             },
             {
               "name": "removeFields",
-              "description": "prop_formit2db.removeFields",
               "value": "[]"
             },
             {
               "name": "autoPackage",
-              "description": "prop_formit2db.autoPackage",
               "type": "combo-boolean",
               "value": false
             }
@@ -88,42 +77,34 @@
           "properties": [
             {
               "name": "prefix",
-              "description": "prop_db2formit.prefix",
               "options": ""
             },
             {
               "name": "packagename",
-              "description": "prop_db2formit.packagename",
               "value": ""
             },
             {
               "name": "classname",
-              "description": "prop_db2formit.classname",
               "value": ""
             },
             {
               "name": "tablename",
-              "description": "prop_db2formit.tablename",
               "value": ""
             },
             {
               "name": "where",
-              "description": "prop_db2formit.where",
               "value": ""
             },
             {
               "name": "paramname",
-              "description": "prop_db2formit.paramname",
               "value": ""
             },
             {
               "name": "fieldname",
-              "description": "prop_db2formit.fieldname",
               "value": ""
             },
             {
               "name": "arrayFormat",
-              "description": "prop_db2formit.arrayFormat",
               "type": "list",
               "options": [
                 {
@@ -139,22 +120,18 @@
             },
             {
               "name": "arrayFields",
-              "description": "prop_db2formit.arrayFields",
               "value": "[]"
             },
             {
               "name": "ignoreFields",
-              "description": "prop_db2formit.ignoreFields",
               "value": "[]"
             },
             {
               "name": "notFoundRedirect",
-              "description": "prop_db2formit.notFoundRedirect",
               "value": ""
             },
             {
               "name": "autoPackage",
-              "description": "prop_db2formit.autoPackage",
               "type": "combo-boolean",
               "value": false
             }
@@ -164,8 +141,8 @@
     }
   },
   "build": {
-    "readme": "docs/readme.txt",
-    "license": "docs/license.txt",
-    "changelog": "docs/changelog.txt"
+    "readme": "docs/readme.md",
+    "license": "docs/license.md",
+    "changelog": "docs/changelog.md"
   }
 }

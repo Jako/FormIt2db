@@ -2,7 +2,7 @@
     "docs": [
         {
             "location": "/", 
-            "text": "FormIt2db/db2FormIt\n\n\nFormIt hooks for saving/retreiving xPDO objects.\n\n\nRequirements\n\n\n\n\nMODX Revolution 2.2.4+\n\n\nPHP v5.3+\n\n\n\n\nFeatures\n\n\n\n\nSave xPDO objects during FormIt posts.\n\n\nRetreive xPDO objects before displaying FormIt forms.", 
+            "text": "FormIt2db/db2FormIt\n\n\nFormIt hooks for saving/retreiving xPDO objects.\n\n\nRequirements\n\n\n\n\nMODX Revolution 2.6+\n\n\nPHP v5.6+\n\n\n\n\nFeatures\n\n\n\n\nSave xPDO objects during FormIt posts.\n\n\nRetreive xPDO objects before displaying FormIt forms.", 
             "title": "Description"
         }, 
         {
@@ -12,7 +12,7 @@
         }, 
         {
             "location": "/#requirements", 
-            "text": "MODX Revolution 2.2.4+  PHP v5.3+", 
+            "text": "MODX Revolution 2.6+  PHP v5.6+", 
             "title": "Requirements"
         }, 
         {

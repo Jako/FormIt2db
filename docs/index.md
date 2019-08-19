@@ -4,8 +4,8 @@ FormIt hooks for saving/retreiving xPDO objects.
 
 ### Requirements
 
-* MODX Revolution 2.2.4+
-* PHP v5.3+
+* MODX Revolution 2.6+
+* PHP v5.6+
 
 ### Features
 

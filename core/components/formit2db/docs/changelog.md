@@ -4,6 +4,11 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [1.1.5] - 2019-08-18
+### Changed
+- PHP/MODX version check
+- Normalized/refactored code 
+
 ## [1.1.4] - 2015-12-30
 ### Changed
 - Bugfix: Wrong usage of $modx->request->getParameters
@@ -36,4 +41,4 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [1.0.0] - 2013-01-03
 ### Added
-- Initial public release as package for MODX Revolution
+- Initial release for MODX Revolution

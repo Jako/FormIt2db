@@ -8,9 +8,7 @@
  * http://forums.modx.com/thread/?thread=32560
  *
  * @package formit2db
- * @subpackage db2formit snippet
- *
- * db2FormIt snippet
+ * @subpackage snippet
  *
  * @var modX $modx
  * @var array $scriptProperties

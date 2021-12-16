@@ -7,6 +7,11 @@ FormIt hooks for saving/retreiving xPDO objects.
 FormIt2db/db2FormIt are two small snippets to save xPDO objects during FormIt
 posts and retreive them before displaying FormIt forms.
 
+## Credits
+
+The snippets base on the code in the following thread in MODX forum
+https://forums.modx.com/thread/32560/formit2db-with-autocreate-schema-classes
+
 ## Installation
 
 MODX Package Management

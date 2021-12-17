@@ -1,6 +1,6 @@
 ## How it works
 
-The FormIt hooks[^1] could use the following properties:
+The FormIt hooks[^1] uses the following properties:
 
 ### Hook Properties for FormIt2db
 

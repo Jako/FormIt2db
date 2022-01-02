@@ -2,7 +2,7 @@
 /**
  * FormIt2db/db2FormIt
  *
- * Copyright 2013-2019 by Thomas Jakobi <thomas.jakobi@partout.info>
+ * Copyright 2013-2019 by Thomas Jakobi <office@treehillstudio.com>
  *
  * The snippets bases on the code in the following thread in MODX forum
  * http://forums.modx.com/thread/?thread=32560

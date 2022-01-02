@@ -1,7 +1,7 @@
 {
   "name": "formit2db",
   "description": "FormIt hooks for saving/retreiving xPDO objects",
-  "author": "Thomas Jakobi <thomas.jakobi@partout.info>",
+  "author": "Thomas Jakobi <office@treehillstudio.com>",
   "private": true,
   "devDependencies": {
     "grunt": "^1.4.1",

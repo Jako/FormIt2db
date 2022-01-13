@@ -49,11 +49,11 @@ if ($autoPackage) {
         }
         // Use this to create a schema from an existing database
         if (!$generator->writeSchema($schemafile, $packagename, 'xPDOObject', $prefix, true)) {
-            $modx->log(modX::LOG_LEVEL_ERROR, 'Could not generate XML schema', '', 'db2FormIt Hook');
+            $modx->log(xPDO::LOG_LEVEL_ERROR, 'Could not generate XML schema', '', 'db2FormIt Hook');
         }
     }
     $generator->parseSchema($schemafile, $modelpath);
-    $modx->log(modX::LOG_LEVEL_WARN, 'autoPackage parameter active', '', 'db2FormIt Hook');
+    $modx->log(xPDO::LOG_LEVEL_WARN, 'autoPackage parameter active', '', 'db2FormIt Hook');
     $modx->addPackage($packagename, $modelpath, $prefix);
     $classname = $generator->getClassName($tablename);
 } else {

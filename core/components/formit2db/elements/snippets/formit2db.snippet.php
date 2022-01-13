@@ -48,11 +48,11 @@ if ($autoPackage) {
         }
         // Use this to create a schema from an existing database
         if (!$generator->writeSchema($schemafile, $packagename, 'xPDOObject', $prefix, true)) {
-            $modx->log(modX::LOG_LEVEL_ERROR, 'Could not generate XML schema', '', 'FormIt2db Hook');
+            $modx->log(xPDO::LOG_LEVEL_ERROR, 'Could not generate XML schema', '', 'FormIt2db Hook');
         }
     }
     $generator->parseSchema($schemafile, $modelpath);
-    $modx->log(modX::LOG_LEVEL_WARN, 'autoPackage parameter active', '', 'FormIt2db Hook');
+    $modx->log(xPDO::LOG_LEVEL_WARN, 'autoPackage parameter active', '', 'FormIt2db Hook');
     $modx->addPackage($packagename, $modelpath, $prefix);
     $classname = $generator->getClassName($tablename);
 } else {
@@ -77,7 +77,7 @@ if (is_array($where)) {
 if (!is_object($dataobject) || !($dataobject instanceof xPDOObject)) {
     $errorMsg = 'Failed to create object of type: ' . $classname;
     $hook->addError('error_message', $errorMsg);
-    $modx->log(modX::LOG_LEVEL_ERROR, $errorMsg, '', 'FormIt2db Hook');
+    $modx->log(xPDO::LOG_LEVEL_ERROR, $errorMsg, '', 'FormIt2db Hook');
     return false;
 }
 
@@ -102,7 +102,7 @@ foreach ($formFields as $field => $value) {
 if (!$dataobject->save()) {
     $errorMsg = 'Failed to save object of type: ' . $classname;
     $hook->addError('error_message', $errorMsg);
-    $modx->log(modX::LOG_LEVEL_ERROR, $errorMsg, '', 'FormIt2db Hook');
+    $modx->log(xPDO::LOG_LEVEL_ERROR, $errorMsg, '', 'FormIt2db Hook');
     return false;
 }
 return true;

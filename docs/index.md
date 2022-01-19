@@ -10,7 +10,7 @@ https://forums.modx.com/thread/32560/formit2db-with-autocreate-schema-classes
 ### Requirements
 
 * MODX Revolution 2.6+
-* PHP v5.6+
+* PHP 7.2+
 
 ### Features
 

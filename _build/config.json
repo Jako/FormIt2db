@@ -3,7 +3,7 @@
   "lowCaseName": "formit2db",
   "description": "FormIt hooks for saving/retreiving xPDO objects",
   "author": "Thomas Jakobi",
-  "version": "1.1.5",
+  "version": "1.2.0",
   "package": {
     "elements": {
       "snippets": [
@@ -143,7 +143,7 @@
   "dependencies": [
     {
       "name": "php",
-      "version": ">=5.6"
+      "version": ">=7.2"
     },
     {
       "name": "modx",

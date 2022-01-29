@@ -10,7 +10,7 @@
         {
           "name": "FormIt2db",
           "description": "FormIt to DB hook.",
-          "file": "formit2db.snippet.php",
+          "file": "formit2db.hook.php",
           "properties": [
             {
               "name": "prefix",
@@ -73,7 +73,7 @@
         {
           "name": "db2FormIt",
           "description": "DB to FormIt hook.",
-          "file": "db2formit.snippet.php",
+          "file": "db2formit.hook.php",
           "properties": [
             {
               "name": "prefix",

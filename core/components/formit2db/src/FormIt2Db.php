@@ -1,6 +1,6 @@
 <?php
 /**
- * FormIt2Db
+ * FormIt2db
  *
  * Copyright 2013-2022 by Thomas Jakobi <office@treehillstudio.com>
  *
@@ -11,14 +11,14 @@
  * @subpackage classfile
  */
 
-namespace TreehillStudio\FormIt2Db;
+namespace TreehillStudio\FormIt2db;
 
 use modX;
 
 /**
- * Class FormIt2Db
+ * Class FormIt2db
  */
-class FormIt2Db
+class FormIt2db
 {
     /**
      * A reference to the modX instance
@@ -36,7 +36,7 @@ class FormIt2Db
      * The package name
      * @var string $packageName
      */
-    public $packageName = 'FormIt2Db';
+    public $packageName = 'FormIt2db';
 
     /**
      * The version
@@ -51,7 +51,7 @@ class FormIt2Db
     public $options = [];
 
     /**
-     * FormIt2Db constructor
+     * FormIt2db constructor
      *
      * @param modX $modx A reference to the modX instance.
      * @param array $options An array of options. Optional.

@@ -3,7 +3,7 @@
   "lowCaseName": "formit2db",
   "description": "FormIt hooks for saving/retreiving xPDO objects",
   "author": "Thomas Jakobi",
-  "version": "1.2.0",
+  "version": "1.2.0-rc1",
   "package": {
     "elements": {
       "snippets": [

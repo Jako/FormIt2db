@@ -20,7 +20,7 @@ pkg.dependencies.forEach(function (dependency, index) {
 gulp.task('bump-copyright', function () {
     return gulp.src([
         'core/components/formit2db/model/formit2db/formit2db.class.php',
-        'core/components/formit2db/src/FormIt2Db.php',
+        'core/components/formit2db/src/FormIt2db.php',
     ], {base: './'})
         .pipe(replace(/Copyright 2013(-\d{4})? by/g, 'Copyright ' + (year > 2013 ? '2013-' : '') + year + ' by'))
         .pipe(gulp.dest('.'));

@@ -10,7 +10,7 @@ namespace TreehillStudio\FormIt2db\Snippets;
 
 use xPDO;
 
-class Db2FormItSnippet extends Hook
+class Db2FormIt extends Hook
 {
     /**
      * Get default snippet properties.
@@ -39,7 +39,6 @@ class Db2FormItSnippet extends Hook
      * Execute the snippet and return the result.
      *
      * @return string
-     * @throws /Exception
      */
     public function execute(): string
     {
@@ -53,30 +52,7 @@ class Db2FormItSnippet extends Hook
         $modelpath = $packagepath . 'model/';
 
         if ($this->getProperty('autoPackage')) {
-            $schemapath = $modelpath . 'schema/';
-            $schemafile = $schemapath . $packagename . '.mysql.schema.xml';
-            $manager = $this->modx->getManager();
-            $generator = $manager->getGenerator();
-            $newFolderPermissions = $this->modx->getOption('new_folder_permissions', null, 0755);
-            if (!file_exists($schemafile)) {
-                if (!is_dir($packagepath)) {
-                    mkdir($packagepath, $newFolderPermissions);
-                }
-                if (!is_dir($modelpath)) {
-                    mkdir($modelpath, $newFolderPermissions);
-                }
-                if (!is_dir($schemapath)) {
-                    mkdir($schemapath, $newFolderPermissions);
-                }
-                // Use this to create a schema from an existing database
-                if (!$generator->writeSchema($schemafile, $packagename, 'xPDOObject', $prefix, true)) {
-                    $this->modx->log(xPDO::LOG_LEVEL_ERROR, 'Could not generate XML schema', '', 'Db2FormIt Hook');
-                }
-            }
-            $generator->parseSchema($schemafile, $modelpath);
-            $this->modx->log(xPDO::LOG_LEVEL_WARN, 'autoPackage parameter active', '', 'Db2FormIt Hook');
-            $this->modx->addPackage($packagename, $modelpath, $prefix);
-            $classname = $generator->getClassName($this->getProperty('tablename'));
+            $classname = $this->createAutopackage($packagename); // CAUTION: the classname can be different after creating the autopackage
         } else {
             $this->modx->addPackage($packagename, $modelpath, $prefix);
         }

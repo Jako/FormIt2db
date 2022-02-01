@@ -28,19 +28,12 @@ classname | Class name of the xPDO object | -
 tablename | Table name for autocreation of the xPDO Package | -
 where | JSON encoded xPDO where clause - to retreive an existing row | -
 paramname | Requested REQUEST param - to retreive an existing row | -
-fieldname | xPDO fieldname the REQUEST param is compared | 'paramname'
- | with - to retreive an existing row. |
-arrayFormat | Format to transform database fields that | csv
- | contains array data (i.e. checkboxes) into. |
-arrayFields | JSON encoded array of database fields that | []
- | are transformed into arrays. |
-ignoreFields | JSON encoded array of database fields that | []
- | are not retreived into FormIt. |
-notFoundRedirect | ID of the MODX resource the user is | 0
- | redirected to, if the requested row is not |
- | found. |
-autoPackage | Autocreate the xPDO Package with packagename |
- | and tablename[^2]. | false
+fieldname | xPDO fieldname the REQUEST param is compared with - to retreive an existing row. | 'paramname'
+arrayFormat | Format to transform database fields that contains array data (i.e. checkboxes) into. | csv
+arrayFields | JSON encoded array of database fields that are transformed into arrays. | []
+ignoreFields | JSON encoded array of database fields that are not retreived into FormIt. | []
+notFoundRedirect | ID of the MODX resource the user is redirected to, if the requested row is not found. | 0
+autoPackage | Autocreate the xPDO Package with packagename and tablename[^2]. | false
 
 ### Notes
 

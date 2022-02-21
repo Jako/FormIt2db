@@ -13,7 +13,6 @@ use TreehillStudio\FormIt2db\FormIt2db;
 
 /**
  * Class Snippet
- * @package FormIt2db
  */
 abstract class Snippet
 {
@@ -22,11 +21,13 @@ abstract class Snippet
      * @var modX $modx
      */
     protected $modx;
+
     /**
      * A reference to the FormIt2db instance
      * @var FormIt2db $formit2db
      */
     protected $formit2db;
+
     /**
      * The snippet properties
      * @var array $properties
@@ -45,12 +46,11 @@ abstract class Snippet
      * @param modX $modx
      * @param array $properties
      */
-    public function __construct(modX $modx, array $properties = [])
+    public function __construct(modX $modx, $properties = [])
     {
         $this->modx =& $modx;
 
         $corePath = $this->modx->getOption('formit2db.core_path', null, $this->modx->getOption('core_path') . 'components/formit2db/');
-        /** @var FormIt2db $formit2db */
         $this->formit2db = $this->modx->getService('formit2db', 'FormIt2db', $corePath . 'model/formit2db/', [
             'core_path' => $corePath
         ]);
@@ -63,7 +63,7 @@ abstract class Snippet
      *
      * @return array
      */
-    public function getDefaultProperties(): array
+    public function getDefaultProperties()
     {
         return [];
     }
@@ -72,7 +72,7 @@ abstract class Snippet
      * @param array $properties
      * @return array
      */
-    public function initProperties(array $properties = []): array
+    public function initProperties(array $properties = [])
     {
         $result = [];
         foreach ($this->getDefaultProperties() as $key => $value) {
@@ -87,7 +87,10 @@ abstract class Snippet
             } else {
                 $result[$parts[0]] = $this->modx->getOption($key, $properties, $value, true);
             }
-            unset($properties[$key]);
+            if ($this->propertyPrefix) {
+                unset($properties[$key]);
+            }
+            unset($properties[$parts[0]]);
         }
         return array_merge($result, $properties);
     }
@@ -96,7 +99,7 @@ abstract class Snippet
      * @param $value
      * @return int
      */
-    protected function getInt($value): int
+    protected function getInt($value)
     {
         return (int)$value;
     }
@@ -105,7 +108,7 @@ abstract class Snippet
      * @param $value
      * @return bool
      */
-    protected function getBool($value): bool
+    protected function getBool($value)
     {
         return ($value == 1 || $value == '1' || $value == true || $value == 'true');
     }
@@ -114,7 +117,7 @@ abstract class Snippet
      * @param $value
      * @return array|null
      */
-    protected function getAssociativeJson($value): ?array
+    protected function getAssociativeJson($value)
     {
         return json_decode($value, true);
     }
@@ -126,7 +129,7 @@ abstract class Snippet
      * @param string $separator
      * @return array
      */
-    protected function getExplodeSeparated($value, string $separator = ','): array
+    protected function getExplodeSeparated($value, $separator = ',')
     {
         return (is_string($value) && $value !== '') ? array_map('trim', explode($separator, $value)) : [];
     }
@@ -136,7 +139,7 @@ abstract class Snippet
      *
      * @return array
      */
-    public function getProperties(): array
+    public function getProperties()
     {
         return $this->properties;
     }

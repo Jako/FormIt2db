@@ -49,6 +49,5 @@ gulp.task('bump-requirements', function () {
 });
 gulp.task('bump', gulp.series('bump-copyright', 'bump-version', 'bump-docs', 'bump-requirements'));
 
-
 // Default Task
 gulp.task('default', gulp.series('bump'));

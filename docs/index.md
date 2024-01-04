@@ -16,3 +16,7 @@ https://forums.modx.com/thread/32560/formit2db-with-autocreate-schema-classes
 
 * Save xPDO objects during FormIt posts.
 * Retreive xPDO objects before displaying FormIt forms.
+
+### License
+
+The project is licensed under the [GPLv2 license](https://github.com/Jako/FormIt2db/LICENSE.md).

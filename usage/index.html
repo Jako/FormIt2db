@@ -676,15 +676,21 @@
 </table>
 <h3 id="examples">Examples</h3>
 <h4 id="formit-call">FormIt call</h4>
-<p>The following FormIt call will retrieve the record of the xPDO class with the <code>id</code> that is
-referenced by the <code>item</code> REQUEST parameter.</p>
+<p>The following FormIt call loads the record of the xPDO class <code>MyPackageClass</code>
+where the value in the <code>id</code> field is equal to the REQUEST parameter <code>item</code> and
+where the field value <code>updated</code> is equal to <code>0</code>. The fields <code>field_1</code> and
+<code>field_2</code> are not loaded into FormIt values. The fields <code>field_3</code> and <code>field_4</code>
+are not saved into the database record.</p>
 <div class="highlight"><pre><span></span><code>[[!FormIt?
-&amp;preHooks=`...,db2FormIt,...`
+&amp;preHooks=`...,db2FormIt,...` 
 &amp;hooks=`...,FormIt2db,...`
-&amp;packagename=`mypackage`
-&amp;classname=`MyPackageClass`
+&amp;packagename=`mypackage` 
+&amp;classname=`MyPackageClass` 
 &amp;fieldname=`id`
-&amp;paramname=`item`
+&amp;paramname=`item` 
+&amp;where=`{&quot;updated:=&quot;:0}`
+&amp;ignoreFields=`[&quot;field_1&quot;, &quot;field_2&quot;]`
+&amp;removeFields=`[&quot;field_3&quot;, &quot;field_4&quot;]`
 </code></pre></div>
 <h4 id="form-code">Form code</h4>
 <div class="highlight"><pre><span></span><code>&lt;form action=&quot;[[~[[*id]]]]&quot; method=&quot;post&quot;&gt;

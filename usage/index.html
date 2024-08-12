@@ -378,11 +378,26 @@
 </li>
         
           <li class="md-nav__item">
-  <a href="#notes" class="md-nav__link">
+  <a href="#examples" class="md-nav__link">
     <span class="md-ellipsis">
-      Notes
+      Examples
     </span>
   </a>
+  
+    <nav class="md-nav" aria-label="Examples">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#formit-call" class="md-nav__link">
+    <span class="md-ellipsis">
+      FormIt call
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
   
 </li>
         
@@ -452,11 +467,26 @@
 </li>
         
           <li class="md-nav__item">
-  <a href="#notes" class="md-nav__link">
+  <a href="#examples" class="md-nav__link">
     <span class="md-ellipsis">
-      Notes
+      Examples
     </span>
   </a>
+  
+    <nav class="md-nav" aria-label="Examples">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#formit-call" class="md-nav__link">
+    <span class="md-ellipsis">
+      FormIt call
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
   
 </li>
         
@@ -586,7 +616,7 @@
 </tr>
 <tr>
 <td>fieldname</td>
-<td>xPDO fieldname the REQUEST param is compared with - to retreive an existing row.</td>
+<td>xPDO fieldname the POST param is compared with - to retreive an existing row.</td>
 <td>'paramname'</td>
 </tr>
 <tr>
@@ -606,7 +636,7 @@
 </tr>
 <tr>
 <td>paramname</td>
-<td>Requested REQUEST param - to retreive an existing row.</td>
+<td>Requested POST param - to retreive an existing row.</td>
 <td>-</td>
 </tr>
 <tr>
@@ -626,7 +656,17 @@
 </tr>
 </tbody>
 </table>
-<h3 id="notes">Notes</h3>
+<h3 id="examples">Examples</h3>
+<h4 id="formit-call">FormIt call</h4>
+<p>The following FormIt call will retrieve the record with the value hash in the POST </p>
+<div class="highlight"><pre><span></span><code>[[!FormIt?
+&amp;preHooks=`...,db2FormIt,...`
+&amp;hooks=`...,FormIt2db,...`
+&amp;packagename=`mypackage`
+&amp;classname=`MyPackageClass`
+&amp;fieldname=`id`
+&amp;paramname=`item`
+</code></pre></div>
 <div class="footnote">
 <hr />
 <ol>

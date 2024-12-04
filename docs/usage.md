@@ -45,7 +45,7 @@ where the field value `updated` is equal to `0`. The fields `field_1` and
 `field_2` are not loaded into FormIt values. The fields `field_3` and `field_4`
 are not saved into the database record.
 
-```
+```html
 [[!FormIt?
 &preHooks=`...,db2FormIt,...` 
 &hooks=`...,FormIt2db,...`
@@ -61,7 +61,7 @@ are not saved into the database record.
 
 #### Form code
 
-```
+```html
 <form action="[[~[[*id]]]]" method="post">
     <input type="hidden" name="item" value="[[!+fi.id]]"/>
     ...

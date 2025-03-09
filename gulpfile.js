@@ -29,7 +29,7 @@ gulp.task('bump-version', function () {
     return gulp.src([
         'core/components/formit2db/src/FormIt2db.php',
     ], {base: './'})
-        .pipe(replace(/version = '\d+.\d+.\d+[-a-z0-9]*'/ig, 'version = \'' + pkg.version + '\''))
+        .pipe(replace(/version = '\d+.\d+.\d+-?[0-9a-z]*'/ig, 'version = \'' + pkg.version + '\''))
         .pipe(gulp.dest('.'));
 });
 gulp.task('bump-docs', function () {

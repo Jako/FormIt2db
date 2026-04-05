@@ -1,3 +1,18 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+      <url>
+        <loc>https://jako.github.io/FormIt2db/</loc>
+      </url>
+      <url>
+        <loc>https://jako.github.io/FormIt2db/installation/</loc>
+      </url>
+      <url>
+        <loc>https://jako.github.io/FormIt2db/usage/</loc>
+      </url>
+      <url>
+        <loc>https://jako.github.io/FormIt2db/changelog/</loc>
+      </url>
+      <url>
+        <loc>https://jako.github.io/FormIt2db/contributors/</loc>
+      </url>
 </urlset>

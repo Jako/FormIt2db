@@ -2,7 +2,7 @@
 /**
  * FormIt2db/db2FormIt
  *
- * Copyright 2013-2019 by Thomas Jakobi <office@treehillstudio.com>
+ * Copyright 2013-2026 by Thomas Jakobi <office@treehillstudio.com>
  *
  * The snippets bases on the code in the following thread in MODX forum
  * http://forums.modx.com/thread/?thread=32560
@@ -24,6 +24,7 @@ $fieldname = $modx->getOption('fieldname', $scriptProperties, $paramname, true);
 $arrayFormat = $modx->getOption('arrayFormat', $scriptProperties, 'csv', true);
 $arrayFields = $modx->fromJson($modx->getOption('arrayFields', $scriptProperties, '[]', true));
 $removeFields = $modx->fromJson($modx->getOption('removeFields', $scriptProperties, '[]', true));
+$allowFields = $modx->fromJson($modx->getOption('allowFields', $scriptProperties, '[]', true));
 $autoPackage = (boolean)$modx->getOption('autoPackage', $scriptProperties, false);
 
 $packagepath = $modx->getOption($packagename . '.core_path', null, $modx->getOption('core_path') . 'components/' . $packagename . '/');
@@ -84,18 +85,20 @@ if (!is_object($dataobject) || !($dataobject instanceof xPDOObject)) {
 $formFields = $hook->getValues();
 foreach ($formFields as $field => $value) {
     if (!in_array($field, $removeFields)) {
-        if (in_array($field, $arrayFields)) {
-            switch ($arrayFormat) {
-                case 'json':
-                    $value = json_encode($value);
-                    break;
-                case 'csv' :
-                default :
-                    $value = implode(',', $value);
-                    break;
+        if (!empty($allowFields) && in_array($field, $allowFields)) {
+            if (in_array($field, $arrayFields)) {
+                switch ($arrayFormat) {
+                    case 'json':
+                        $value = json_encode($value);
+                        break;
+                    case 'csv' :
+                    default :
+                        $value = implode(',', $value);
+                        break;
+                }
             }
+            $dataobject->set($field, $value);
         }
-        $dataobject->set($field, $value);
     }
 }
 

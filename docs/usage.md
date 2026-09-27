@@ -4,36 +4,37 @@ The FormIt hooks[^1] uses the following properties:
 
 ### Hook Properties for FormIt2db
 
-| Property     | Description                                                                                     | Default        |
-|--------------|-------------------------------------------------------------------------------------------------|----------------|
-| arrayFields  | JSON encoded array of form fields that contains array data i.e. `["field_1", "field_2"]`.       | []             |
-| arrayFormat  | Format to transform form fields that contains array data (i.e. checkboxes) into.                | csv            |
-| autoPackage  | Use the autocreated xPDO Package[^2].                                                           | 0 (No)         |
-| classname    | Class name of the xPDO object.                                                                  | -              |
-| fieldname    | xPDO fieldname the POST param is compared with – to update a row instead of creating a new one. | 'paramname'    |
-| packagename  | Package name of the xPDO package.                                                               | -              |
-| paramname    | Requested POST param – to update a row instead of creating a new one.                           | -              |
-| prefix       | Table prefix of the xPDO package.                                                               | MODX DB prefix |
-| removeFields | JSON encoded array of form fields not saved in the xPDO object i.e. `["field_1", "field_2"]`.   | []             |
-| tablename    | Table name of the MySQL table (only used if autoPackage is enabled).                            | -              |
-| where        | JSON encoded xPDO where clause – to update a row instead of creating a new one.                 | -              |
+| Property     | Description                                                                                                                                    | Default        |
+|--------------|------------------------------------------------------------------------------------------------------------------------------------------------|----------------|
+| allowFields  | JSON-encoded array of form fields that are allowed to be saved in the xPDO object i.e. ["field_1", "field_2"]. Defaults to all fields allowed. | `[]`           |
+| arrayFields  | JSON-encoded array of form fields that contains array data i.e. `["field_1", "field_2"]`                                                       | `[]`           |
+| arrayFormat  | Format to transform form fields that contains array data (i.e. checkboxes) into.                                                               | csv            |
+| autoPackage  | Use the autocreated xPDO Package[^2].                                                                                                          | 0 (No)         |
+| classname    | Class name of the xPDO object.                                                                                                                 | -              |
+| fieldname    | xPDO fieldname the POST param is compared with – to update a row instead of creating a new one.                                                | 'paramname'    |
+| packagename  | Package name of the xPDO package.                                                                                                              | -              |
+| paramname    | Requested POST param – to update a row instead of creating a new one.                                                                          | -              |
+| prefix       | Table prefix of the xPDO package.                                                                                                              | MODX DB prefix |
+| removeFields | JSON-encoded array of form fields not saved in the xPDO object i.e. `["field_1", "field_2"]`. Defaults to no fields removed.                   | `[]`           |
+| tablename    | Table name of the MySQL table (only used if autoPackage is enabled).                                                                           | -              |
+| where        | JSON-encoded xPDO where clause – to update a row instead of creating a new one.                                                                | -              |
 
 ### Hook Properties for db2FormIt
 
 | Property         | Description                                                                                             | Default        |
 |------------------|---------------------------------------------------------------------------------------------------------|----------------|
-| arrayFields      | JSON encoded array of database fields that are transformed into arrays i.e. `["field_1", "field_2"]`.   | []             |
+| arrayFields      | JSON-encoded array of database fields that are transformed into arrays i.e. `["field_1", "field_2"]`.   | `[]`           |
 | arrayFormat      | Format to transform database fields that contains array data (i.e. checkboxes) into.                    | csv            |
 | autoPackage      | Autocreate the xPDO Package with packagename and tablename[^2].                                         | 0 (No)         |
 | classname        | Class name of the xPDO object.                                                                          | -              |
 | fieldname        | xPDO fieldname the REQUEST param is compared with – to retreive an existing row.                        | 'paramname'    |
-| ignoreFields     | JSON encoded array of database fields that are not retreived into FormIt i.e. `["field_1", "field_2"]`. | []             |
+| ignoreFields     | JSON-encoded array of database fields that are not retreived into FormIt i.e. `["field_1", "field_2"]`. | `[]`           |
 | notFoundRedirect | ID of the MODX resource the user is redirected to, if the requested row is not found.                   | -              |
 | packagename      | Package name of the xPDO package.                                                                       | -              |
 | paramname        | Requested REQUEST param – to retreive an existing row.                                                  | -              |
 | prefix           | Table prefix of the xPDO package.                                                                       | MODX DB prefix |
 | tablename        | Table name of the MySQL table (only used if autoPackage is enabled).                                    | -              |
-| where            | JSON encoded xPDO where clause – to retreive an existing row.                                           | -              |
+| where            | JSON-encoded xPDO where clause – to retreive an existing row.                                           | -              |
 
 ### Examples
 
@@ -41,9 +42,10 @@ The FormIt hooks[^1] uses the following properties:
 
 The following FormIt call loads the record of the xPDO class `MyPackageClass`
 where the value in the `id` field is equal to the REQUEST parameter `item` and
-where the field value `updated` is equal to `0`. The fields `field_1` and
-`field_2` are not loaded into FormIt values. The fields `field_3` and `field_4`
-are not saved into the database record.
+where the field value `updated` is equal to `0`. The fields `field_1`,
+`field_2`, `field_5` and `field_6` are allowed to be saved into the database
+record. The fields `field_1` and `field_2` are not loaded into FormIt values.
+The fields `field_3` and `field_4` are not saved into the database record.
 
 ```html
 [[!FormIt?
@@ -54,8 +56,9 @@ are not saved into the database record.
 &fieldname=`id`
 &paramname=`item` 
 &where=`{"updated:=":0}`
-&ignoreFields=`["field_1", "field_2"]`
+&allowFields=`["field_1", "field_2", "field_5", "field_6"]`
 &removeFields=`["field_3", "field_4"]`
+&ignoreFields=`["field_1", "field_2"]`
 ]]
 ```
 

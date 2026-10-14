@@ -1,4 +1,4 @@
-const fs = require('fs');
+const fs = require('fs').promises;
 
 // Read package information dynamically from package.json
 const packageJson = require('./package.json');
@@ -15,7 +15,6 @@ const copyrightRegex = new RegExp(`Copyright ${startYear}(-\\d{4})? by`, 'g');
 const copyrightReplace = `Copyright ${yearRange} by`;
 const apiRegex = new RegExp(`&copy; ${startYear}(-\\d{4})?`, 'g');
 const apiReplace = `&copy; ${yearRange}`;
-const banner = `/*!\n * ${packageJson.fullname} - ${packageJson.description}\n * Version: ${packageJson.version}\n * Build date: ${dateStr}\n */\n`;
 
 let versionParts = version.split('-');
 let versionNumber = versionParts[0];
@@ -23,41 +22,41 @@ let versionRelease = versionParts[1] || 'pl';
 let versionFull = versionNumber + '-' + versionRelease;
 
 // Helper: Replace string/regex in a file
-function replaceInFile(filePath, replacements, message = 'file') {
-    if (!fs.existsSync(filePath)) {
-        console.warn(`⚠ File not found: ${filePath}`);
-        return;
+async function replaceInFile(filePath, replacements, message = 'file') {
+    try {
+        let content = await fs.readFile(filePath, 'utf8');
+        replacements.forEach(({ search, replace }) => {
+            content = content.replace(search, replace);
+        });
+        await fs.writeFile(filePath, content, 'utf8');
+        console.log(`✓ Updated ${message}: ${filePath}`);
+    } catch (e) {
+        console.warn(`⚠ Error updating ${filePath}`);
     }
-    let content = String(fs.readFileSync(filePath, 'utf8'));
-    replacements.forEach(({ search, replace }) => {
-        content = content.replace(search, replace);
-    });
-    fs.writeFileSync(filePath, content, 'utf8');
-    console.log(`✓ Updated ${message}: ${filePath}`);
 }
 
 async function taskBump() {
     console.log(`Bump (with version ${versionFull} and daterange: ${yearRange})...`);
     const copyrightFiles = [
         'core/components/formit2db/elements/snippets/db2formit.snippet.php',
-        'core/components/formit2db/elements/snippets/formit2db.snippet.php',
+        'core/components/formit2db/elements/snippets/formit2db.snippet.php'
     ];
-    copyrightFiles.forEach(file => {
-        replaceInFile(file, [{
+    for (const file of copyrightFiles) {
+        await replaceInFile(file, [{
             search: copyrightRegex,
             replace: copyrightReplace
         }], 'copyright in');
-    });
+    }
     const docFiles = [
         'zensical.toml',
     ];
-    docFiles.forEach(file => {
-        replaceInFile(file, [{
+    for (const file of docFiles) {
+        await replaceInFile(file, [{
             search: apiRegex,
             replace: apiReplace
         }], 'daterange in');
-    });
-    replaceInFile('docs/index.md', [{
+    }
+    await replaceInFile('docs/index.md', [{
         search: /[*-] MODX Revolution \d.\d.*/g,
         replace: '* MODX Revolution ' + modxversion + '+'
     }, {
@@ -67,12 +66,12 @@ async function taskBump() {
     const buildFiles = [
         '_build/config.json',
     ];
-    buildFiles.forEach(file => {
-        replaceInFile(file, [{
+    for (const file of buildFiles) {
+        await replaceInFile(file, [{
             search: /"version": "\d+\.\d+\.\d+-?[0-9a-z]*"/ig,
             replace: `"version": "${version}"`
         }], 'version in');
-    });
+    }
 }
 
 const action = process.argv[2];

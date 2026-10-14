@@ -85,7 +85,9 @@ if (!is_object($dataobject) || !($dataobject instanceof xPDOObject)) {
 $formFields = $hook->getValues();
 foreach ($formFields as $field => $value) {
     if (!in_array($field, $removeFields)) {
-        if (!empty($allowFields) && in_array($field, $allowFields)) {
+        if (empty($allowFields) ||
+            (is_array($allowFields)) && in_array($field, $allowFields)
+        ) {
             if (in_array($field, $arrayFields)) {
                 switch ($arrayFormat) {
                     case 'json':

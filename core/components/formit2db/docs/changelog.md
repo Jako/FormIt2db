@@ -5,11 +5,17 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [1.1.7] - 2026-10-14
+
+### Fixed
+
+- Fix overly strict validation of the `allowFields` property
+
 ## [1.1.6] - 2026-09-27
 
 ### Changed
 
-- Add the `allowFields` property to the FormIt2db snippet to enhance security.
+- Add the `allowFields` property to the FormIt2db snippet to enhance security
 
 ## [1.1.5] - 2019-08-19
 
@@ -36,7 +42,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Added
 
-- Add: autoPackage parameter: Package generation is executed in FormIt2db too. Before it was only active in db2FormIt.
+- Add: autoPackage parameter: Package generation is executed in FormIt2db too. Before it was only active in db2FormIt
 
 ## [1.1.1] - 2014-12-07
 
